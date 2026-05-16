@@ -1,5 +1,2 @@
 name = "devops-maturity-portal"
-compatibility_date = "2026-05-16"
-
-[assets]
-directory = "."
+pages_build_output_dir = "."

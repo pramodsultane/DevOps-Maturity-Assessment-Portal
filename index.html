@@ -228,13 +228,20 @@
     transition: all 0.15s;
     display: flex; align-items: center; justify-content: center;
   }
-  .score-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  /* Enhancement 4: pre-tinted unselected buttons so scale is visible before clicking */
+  .score-btn:not(.selected) { border-color: rgba(61,79,110,0.6); }
+  .score-btn.s1:not(.selected) { background: rgba(247,79,106,0.07); color: rgba(247,79,106,0.55); border-color: rgba(247,79,106,0.2); }
+  .score-btn.s2:not(.selected) { background: rgba(247,163,79,0.07); color: rgba(247,163,79,0.55); border-color: rgba(247,163,79,0.2); }
+  .score-btn.s3:not(.selected) { background: rgba(167,139,250,0.07); color: rgba(167,139,250,0.55); border-color: rgba(167,139,250,0.2); }
+  .score-btn.s4:not(.selected) { background: rgba(79,142,247,0.07); color: rgba(79,142,247,0.55); border-color: rgba(79,142,247,0.2); }
+  .score-btn.s5:not(.selected) { background: rgba(0,212,170,0.07); color: rgba(0,212,170,0.55); border-color: rgba(0,212,170,0.2); }
+  .score-btn:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(79,142,247,0.12); }
   .score-btn.selected { border-color: var(--accent); background: rgba(0,212,170,0.15); color: var(--accent); }
-  .score-btn.s1.selected { border-color: var(--danger); background: rgba(247,79,106,0.12); color: var(--danger); }
-  .score-btn.s2.selected { border-color: var(--accent3); background: rgba(247,163,79,0.12); color: var(--accent3); }
-  .score-btn.s3.selected { border-color: #a78bfa; background: rgba(167,139,250,0.12); color: #a78bfa; }
-  .score-btn.s4.selected { border-color: var(--accent2); background: rgba(79,142,247,0.12); color: var(--accent2); }
-  .score-btn.s5.selected { border-color: var(--accent); background: rgba(0,212,170,0.15); color: var(--accent); }
+  .score-btn.s1.selected { border-color: var(--danger); background: rgba(247,79,106,0.18); color: var(--danger); }
+  .score-btn.s2.selected { border-color: var(--accent3); background: rgba(247,163,79,0.18); color: var(--accent3); }
+  .score-btn.s3.selected { border-color: #a78bfa; background: rgba(167,139,250,0.18); color: #a78bfa; }
+  .score-btn.s4.selected { border-color: var(--accent2); background: rgba(79,142,247,0.18); color: var(--accent2); }
+  .score-btn.s5.selected { border-color: var(--accent); background: rgba(0,212,170,0.2); color: var(--accent); }
   .level-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.6rem; padding: 2px 8px; border-radius: 10px;
@@ -412,6 +419,251 @@
   }
   .legend-name { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.2rem; }
   .legend-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+  /* ── FORM LAYOUT WITH SIDEBAR (Enhancement 5) ── */
+  .form-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  .domain-sidebar {
+    position: sticky; top: 72px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+  }
+  .sidebar-header {
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 1.5px;
+    color: var(--text-muted); text-transform: uppercase;
+  }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(30,45,69,0.4);
+    cursor: pointer; text-decoration: none;
+    transition: background 0.15s;
+  }
+  .sidebar-item:last-child { border-bottom: none; }
+  .sidebar-item:hover { background: rgba(79,142,247,0.07); }
+  .sidebar-item.done { background: rgba(0,212,170,0.04); }
+  .sidebar-d-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px;
+    background: var(--surface2); color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .sidebar-item.done .sidebar-d-num { background: rgba(0,212,170,0.15); color: var(--accent); }
+  .sidebar-d-name {
+    font-size: 0.72rem; color: var(--text-muted);
+    flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .sidebar-item.done .sidebar-d-name { color: var(--text); }
+  .sidebar-d-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; white-space: nowrap; color: var(--text-dim);
+  }
+  .sidebar-item.done .sidebar-d-score { color: var(--accent); }
+  .sidebar-status-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+    background: var(--border);
+  }
+  .sidebar-item.done .sidebar-status-dot { background: var(--accent); }
+  .sidebar-item.partial .sidebar-status-dot { background: var(--accent3); }
+  /* ── HEATMAP (Enhancement 1) ── */
+  .heatmap-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+  }
+  .heatmap-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .heatmap-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+  }
+  .hm-cell {
+    border-radius: 10px; padding: 0.6rem 0.5rem;
+    text-align: center; cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .hm-cell:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.1); }
+  .hm-label {
+    font-size: 0.6rem; color: inherit; opacity: 0.7;
+    margin-bottom: 4px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hm-score { font-size: 1rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+  .hm-pct { font-size: 0.58rem; opacity: 0.65; margin-top: 1px; font-family: 'JetBrains Mono', monospace; }
+  .hm-none  { background: rgba(61,79,110,0.3); color: var(--text-dim); border-color: var(--border); }
+  .hm-low   { background: rgba(247,79,106,0.15); color: #f87b91; }
+  .hm-mid   { background: rgba(247,163,79,0.15); color: var(--accent3); }
+  .hm-good  { background: rgba(0,212,170,0.12); color: var(--accent); }
+  /* ── GAUGE RING (Enhancement 2) ── */
+  .gauge-result-wrap {
+    display: flex; align-items: center; gap: 2rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem 2.5rem;
+    margin: 0 auto 2.5rem; max-width: 680px;
+  }
+  .gauge-svg-wrap { position: relative; width: 140px; height: 140px; flex-shrink: 0; }
+  .gauge-svg-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .gauge-center-label {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .gauge-pct-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem; font-weight: 700;
+  }
+  .gauge-score-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; color: var(--text-muted);
+  }
+  .gauge-info-block { flex: 1; }
+  .gauge-level-name {
+    font-size: 1.75rem; font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+  }
+  .gauge-interp { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem; }
+  .gauge-action { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+  /* ── HORIZONTAL BAR CHART (Enhancement 3) ── */
+  .hbar-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem; margin-bottom: 2rem;
+  }
+  .hbar-row {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 0.85rem;
+  }
+  .hbar-row:last-child { margin-bottom: 0; }
+  .hbar-label {
+    font-size: 0.78rem; color: var(--text-muted);
+    width: 190px; flex-shrink: 0; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .hbar-track {
+    flex: 1; height: 10px; background: var(--border);
+    border-radius: 5px; overflow: hidden;
+  }
+  .hbar-fill {
+    height: 100%; border-radius: 5px;
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    width: 0%;
+  }
+  .hbar-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600;
+    width: 38px; text-align: right; flex-shrink: 0;
+  }
+  .hbar-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; padding: 2px 8px; border-radius: 8px;
+    border: 1px solid; white-space: nowrap; flex-shrink: 0; width: 80px; text-align: center;
+  }
+  /* ── SCORING GUIDE MODAL ── */
+  .scoring-guide-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5px;
+    color: var(--accent2); text-decoration: none;
+    border: 1px solid var(--accent2);
+    padding: 6px 16px; border-radius: 20px;
+    background: rgba(79,142,247,0.08);
+    transition: all 0.2s; cursor: pointer;
+    margin-bottom: 2.5rem;
+  }
+  .scoring-guide-link:hover {
+    background: rgba(79,142,247,0.18);
+    box-shadow: 0 0 16px rgba(79,142,247,0.25);
+    transform: translateY(-1px);
+  }
+  .scoring-guide-link svg { flex-shrink: 0; }
+  .sg-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+    align-items: flex-start; justify-content: center;
+    overflow-y: auto; padding: 2rem 1rem;
+  }
+  .sg-overlay.open { display: flex; }
+  .sg-modal {
+    background: var(--surface);
+    border: 1px solid var(--accent2);
+    border-radius: 20px; width: 100%; max-width: 960px;
+    box-shadow: 0 0 60px rgba(79,142,247,0.2);
+    animation: fadeSlideIn 0.35s ease;
+    overflow: hidden;
+  }
+  .sg-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .sg-modal-title {
+    font-size: 1.1rem; font-weight: 700;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .sg-modal-title::before {
+    content: ''; width: 3px; height: 18px;
+    background: linear-gradient(var(--accent2), var(--accent));
+    border-radius: 2px;
+  }
+  .sg-close {
+    background: none; border: 1px solid var(--border);
+    color: var(--text-muted); cursor: pointer;
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; transition: all 0.2s;
+  }
+  .sg-close:hover { border-color: var(--danger); color: var(--danger); }
+  .sg-body { padding: 2rem; }
+  .sg-section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 2px; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+  .sg-section-title {
+    font-size: 1rem; font-weight: 700; margin-bottom: 1.25rem;
+  }
+  .sg-table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.82rem; margin-bottom: 2.5rem;
+    border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+  }
+  .sg-table th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.63rem; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--text-muted); background: var(--surface2);
+    padding: 0.7rem 1rem; text-align: left; font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .sg-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(30,45,69,0.5);
+    vertical-align: top; line-height: 1.5;
+    color: var(--text);
+  }
+  .sg-table tr:last-child td { border-bottom: none; }
+  .sg-table tr:hover td { background: rgba(79,142,247,0.04); }
+  .sg-score-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem; font-weight: 700;
+    display: inline-block; min-width: 22px; text-align: center;
+  }
+  .sg-level-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; font-weight: 700;
+    padding: 2px 8px; border-radius: 6px;
+    display: inline-block; white-space: nowrap;
+  }
   /* ── TOASTS ── */
   .toast {
     position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
@@ -435,11 +687,21 @@
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--accent2); }
+  @media (max-width: 900px) {
+    .form-layout { grid-template-columns: 1fr; }
+    .domain-sidebar { position: static; display: flex; flex-wrap: wrap; border-radius: 12px; }
+    .sidebar-header { width: 100%; }
+    .sidebar-item { flex: 1 1 45%; border-bottom: none; border-right: 1px solid rgba(30,45,69,0.4); }
+    .gauge-result-wrap { flex-direction: column; text-align: center; }
+    .heatmap-grid { grid-template-columns: repeat(4, 1fr); }
+  }
   @media (max-width: 640px) {
     .hero h1 { font-size: 2rem; }
     .control-top { grid-template-columns: 1fr; }
     .score-picker { flex-direction: row; align-items: center; justify-content: space-between; }
     .flashcard-wrap { height: 380px; }
+    .heatmap-grid { grid-template-columns: repeat(2, 1fr); }
+    .hbar-label { width: 120px; font-size: 0.7rem; }
   }
 </style>
 </head>
@@ -478,6 +740,10 @@
   <div class="hero-label">Assessment Portal</div>
   <h1>DevOps Maturity<br>Assessment</h1>
   <p>Evaluate your organization's DevOps practices across 8 domains. Score each control and receive an instant maturity report with actionable insights.</p>
+  <a class="scoring-guide-link" onclick="document.getElementById('sg-overlay').classList.add('open')">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Scoring &amp; Interpretation Guide
+  </a>
   <div class="stats-row">
     <div class="stat-chip"><span class="dot"></span>8 Domains</div>
     <div class="stat-chip"><span class="dot" style="background:var(--accent2)"></span>22 Controls</div>
@@ -501,24 +767,28 @@
 <div class="main-wrap" id="form-view">
   <div class="container">
 
-    <!-- Domain Nav -->
-    <!-- Domain Cards -->
-    <div id="domains-container"></div>
-    <div class="actions-row" style="justify-content:flex-end;margin-bottom:2rem;">
-      <button class="btn btn-primary btn-xl" onclick="submitAssessment()">✓ Submit Assessment</button>
+    <!-- Enhancement 1: Domain Heatmap -->
+    <div class="heatmap-section">
+      <div class="heatmap-title">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 2s infinite"></span>
+        Domain overview
+      </div>
+      <div class="heatmap-grid" id="heatmap-grid"></div>
     </div>
 
-    <!-- Score Legend (fixed bottom reference) -->
-    <div class="radar-section" style="margin-top:2rem;">
-      <div class="section-title">Scoring Reference</div>
-      <div class="section-sub">// 0-5 scale per control</div>
-      <div class="legend-grid">
-        <div class="legend-item"><span class="legend-score" style="color:var(--text-dim)">0</span><div><div class="legend-name">Not Implemented</div><div class="legend-desc">No activity exists. No awareness or tooling present.</div></div></div>
-        <div class="legend-item"><span class="legend-score" style="color:var(--danger)">1</span><div><div class="legend-name">Initial / Ad-hoc</div><div class="legend-desc">Isolated efforts, undocumented and inconsistent.</div></div></div>
-        <div class="legend-item"><span class="legend-score" style="color:var(--accent3)">2</span><div><div class="legend-name">Partially Implemented</div><div class="legend-desc">Implemented for some projects, not consistently enforced.</div></div></div>
-        <div class="legend-item"><span class="legend-score" style="color:#a78bfa">3</span><div><div class="legend-name">Defined & Documented</div><div class="legend-desc">Formally documented, adopted by most teams.</div></div></div>
-        <div class="legend-item"><span class="legend-score" style="color:var(--accent2)">4</span><div><div class="legend-name">Fully Implemented</div><div class="legend-desc">Fully enforced via automation, monitored.</div></div></div>
-        <div class="legend-item"><span class="legend-score" style="color:var(--accent)">5</span><div><div class="legend-name">Optimized</div><div class="legend-desc">Continuous improvement cycles, benchmarking.</div></div></div>
+    <!-- Enhancement 5: Sidebar + Domain Cards layout -->
+    <div class="form-layout">
+      <!-- Sidebar -->
+      <div class="domain-sidebar" id="domain-sidebar">
+        <div class="sidebar-header">// Domains</div>
+      </div>
+
+      <!-- Domain Cards + Submit -->
+      <div>
+        <div id="domains-container"></div>
+        <div class="actions-row" style="justify-content:flex-end;margin-bottom:2rem;">
+          <button class="btn btn-primary btn-xl" onclick="submitAssessment()">✓ Submit Assessment</button>
+        </div>
       </div>
     </div>
 
@@ -528,27 +798,38 @@
 <!-- RESULTS VIEW -->
 <div id="results-view">
   <div class="container">
-    <div style="text-align:center;margin-bottom:3rem;">
+    <div style="text-align:center;margin-bottom:2.5rem;">
       <div class="hero-label">Assessment Complete</div>
       <h2 style="font-size:2rem;font-weight:800;letter-spacing:-1px;margin-bottom:0.5rem;">Your Maturity Report</h2>
-      <p style="color:var(--text-muted);font-size:0.9rem;">Click the card to reveal interpretation · Download Excel for full detail</p>
+      <p style="color:var(--text-muted);font-size:0.9rem;">Download Excel for full detail</p>
     </div>
 
-    <!-- FLASH CARD -->
-    <div class="flashcard-wrap" id="flashcard" onclick="document.getElementById('flashcard').querySelector('.flashcard').classList.toggle('flipped')">
-      <div class="flashcard">
-        <div class="card-face card-front">
-          <div class="maturity-badge-big" id="result-emoji">🚀</div>
-          <div class="maturity-level-name" id="result-level-name">Optimized</div>
-          <div class="maturity-score-big" id="result-score-text">Score: 0 / 110</div>
-          <div class="flip-hint">▶ CLICK TO REVEAL INTERPRETATION</div>
-        </div>
-        <div class="card-face card-back">
-          <div class="card-back-title">INTERPRETATION</div>
-          <div class="card-interpretation" id="result-interpretation">—</div>
-          <div class="card-action" id="result-action">—</div>
+    <!-- Enhancement 2: Gauge Ring (replaces flip card) -->
+    <div class="gauge-result-wrap" id="gauge-result-wrap">
+      <div class="gauge-svg-wrap">
+        <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="70" cy="70" r="56" fill="none" stroke="#1e2d45" stroke-width="14"/>
+          <circle id="gauge-arc" cx="70" cy="70" r="56" fill="none" stroke="#00d4aa" stroke-width="14"
+            stroke-dasharray="351.86" stroke-dashoffset="351.86"
+            stroke-linecap="round"/>
+        </svg>
+        <div class="gauge-center-label">
+          <span class="gauge-pct-text" id="gauge-pct-text" style="color:var(--accent)">0%</span>
+          <span class="gauge-score-sub" id="gauge-score-sub">0 / 110</span>
         </div>
       </div>
+      <div class="gauge-info-block">
+        <div class="gauge-level-name" id="gauge-level-name">—</div>
+        <div class="gauge-interp" id="gauge-interp">—</div>
+        <div class="gauge-action" id="gauge-action">—</div>
+      </div>
+    </div>
+
+    <!-- Enhancement 3: Horizontal Bar Chart -->
+    <div class="hbar-section">
+      <div class="section-title">Domain Breakdown</div>
+      <div class="section-sub">// Score per domain — sorted by maturity %</div>
+      <div id="hbar-container" style="margin-top:0.5rem;"></div>
     </div>
 
     <!-- RADAR CHART -->
@@ -562,7 +843,7 @@
 
     <!-- DOMAIN SUMMARY TABLE -->
     <div class="radar-section">
-      <div class="section-title">Domain Breakdown</div>
+      <div class="section-title">Full Score Table</div>
       <div class="section-sub">// Detailed scores by domain</div>
       <table class="summary-table">
         <thead>
@@ -585,6 +866,119 @@
     </div>
 
     <p style="text-align:center;margin-top:2rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-dim);">© 2026 Pramod Sultane · For Internal Use Only</p>
+  </div>
+</div>
+
+<!-- SCORING GUIDE MODAL -->
+<div class="sg-overlay" id="sg-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="sg-modal">
+    <div class="sg-modal-header">
+      <div class="sg-modal-title">Scoring &amp; Interpretation Guide</div>
+      <button class="sg-close" onclick="document.getElementById('sg-overlay').classList.remove('open')">✕</button>
+    </div>
+    <div class="sg-body">
+
+      <!-- Table 1: Scoring Model -->
+      <div class="sg-section-label">// Table 1</div>
+      <div class="sg-section-title">Scoring Model</div>
+      <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.6;">Each control is scored on a <strong style="color:var(--accent)">0 to 5</strong> scale. The table below defines each maturity level:</p>
+      <table class="sg-table">
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Level</th>
+            <th>Description</th>
+            <th>Evidence Required</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="sg-score-chip" style="color:var(--text-dim)">0</span></td>
+            <td><span class="sg-level-badge" style="background:rgba(107,127,163,0.12);color:var(--text-dim)">Not Implemented</span></td>
+            <td>No activity exists in this area. No awareness or tooling present.</td>
+            <td style="color:var(--text-muted);font-style:italic">None – control does not exist</td>
+          </tr>
+          <tr>
+            <td><span class="sg-score-chip" style="color:var(--danger)">1</span></td>
+            <td><span class="sg-level-badge" style="background:rgba(247,79,106,0.1);color:var(--danger)">Initial / Ad-hoc</span></td>
+            <td>Some isolated efforts exist, but they are undocumented and inconsistent across teams.</td>
+            <td style="color:var(--text-muted);font-style:italic">Informal evidence, verbal confirmation only</td>
+          </tr>
+          <tr>
+            <td><span class="sg-score-chip" style="color:var(--accent3)">2</span></td>
+            <td><span class="sg-level-badge" style="background:rgba(247,163,79,0.1);color:var(--accent3)">Partially Implemented</span></td>
+            <td>Control is implemented for some projects or teams but not consistently enforced organization wide.</td>
+            <td style="color:var(--text-muted);font-style:italic">Partial documentation, some projects compliant</td>
+          </tr>
+          <tr>
+            <td><span class="sg-score-chip" style="color:#a78bfa">3</span></td>
+            <td><span class="sg-level-badge" style="background:rgba(167,139,250,0.1);color:#a78bfa">Defined &amp; Documented</span></td>
+            <td>Control is formally documented, adopted by most teams, and regularly reviewed.</td>
+            <td style="color:var(--text-muted);font-style:italic">Policy documentation, team adoption evidence</td>
+          </tr>
+          <tr>
+            <td><span class="sg-score-chip" style="color:var(--accent2)">4</span></td>
+            <td><span class="sg-level-badge" style="background:rgba(79,142,247,0.1);color:var(--accent2)">Fully Implemented &amp; Enforced</span></td>
+            <td>Control is fully implemented, enforced via automation (CI/CD, policy gates), and monitored.</td>
+            <td style="color:var(--text-muted);font-style:italic">Automated enforcement, audit logs, dashboards</td>
+          </tr>
+          <tr>
+            <td><span class="sg-score-chip" style="color:var(--accent)">5</span></td>
+            <td><span class="sg-level-badge" style="background:rgba(0,212,170,0.1);color:var(--accent)">Optimized &amp; Continuously Improved</span></td>
+            <td>Control is mature with continuous improvement cycles, feedback loops, and benchmarking.</td>
+            <td style="color:var(--text-muted);font-style:italic">KPIs, trend analysis, improvement records</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Table 2: Score Interpretation -->
+      <div class="sg-section-label">// Table 2</div>
+      <div class="sg-section-title">Score Interpretation</div>
+      <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.6;">Total scores are calculated by summing scores across all controls. Use the following table to interpret overall organizational maturity:</p>
+      <table class="sg-table">
+        <thead>
+          <tr>
+            <th>Overall Score</th>
+            <th>Maturity Level</th>
+            <th>Interpretation</th>
+            <th>Recommended Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">0 – 20</td>
+            <td><span class="sg-level-badge" style="background:rgba(247,79,106,0.1);color:var(--danger)">🔴 Beginner</span></td>
+            <td>Critical gaps exist. DevOps practices are largely absent or ad-hoc.</td>
+            <td style="color:var(--text-muted)">Immediate remediation required. Prioritize foundational controls.</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">20 – 45</td>
+            <td><span class="sg-level-badge" style="background:rgba(247,163,79,0.1);color:var(--accent3)">🟠 Developing</span></td>
+            <td>Some practices are in place, but significant inconsistencies remain across teams.</td>
+            <td style="color:var(--text-muted)">Focus on standardization and documentation of existing practices.</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">45 – 70</td>
+            <td><span class="sg-level-badge" style="background:rgba(167,139,250,0.1);color:#a78bfa">🟣 Maturing</span></td>
+            <td>DevOps practices are defined and mostly implemented. Some automation gaps exist.</td>
+            <td style="color:var(--text-muted)">Enforce automation and broaden adoption across all teams.</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">70 – 90</td>
+            <td><span class="sg-level-badge" style="background:rgba(79,142,247,0.1);color:var(--accent2)">🔵 Advanced</span></td>
+            <td>Strong DevOps culture with broad automation, enforcement, and visibility.</td>
+            <td style="color:var(--text-muted)">Focus on optimization, continuous improvement, and benchmarking.</td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono',monospace;font-weight:600;white-space:nowrap">90 – 110</td>
+            <td><span class="sg-level-badge" style="background:rgba(0,212,170,0.1);color:var(--accent)">🟢 Optimized</span></td>
+            <td>World-class DevOps practices with continuous improvement and full observability.</td>
+            <td style="color:var(--text-muted)">Sustain excellence and drive industry-leading innovations.</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
   </div>
 </div>
 
@@ -700,7 +1094,91 @@ function buildUI() {
     container.appendChild(card);
   });
 
+  buildHeatmap();
+  buildSidebar();
   updateProgress();
+}
+
+// Enhancement 1: Heatmap
+function getHmClass(pct) {
+  if (pct === 0) return 'hm-none';
+  if (pct < 40) return 'hm-low';
+  if (pct < 70) return 'hm-mid';
+  return 'hm-good';
+}
+
+function buildHeatmap() {
+  const grid = document.getElementById('heatmap-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  DOMAINS.forEach((d, idx) => {
+    const actual = getDomainScore(d);
+    const pct = Math.round((actual / d.max) * 100);
+    const cls = getHmClass(pct);
+    const cell = document.createElement('div');
+    cell.className = `hm-cell ${cls}`;
+    cell.id = `hm-${idx}`;
+    cell.title = `${d.name}: ${actual}/${d.max}`;
+    cell.onclick = () => document.getElementById(`card-${idx}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    cell.innerHTML = `
+      <div class="hm-label">D${d.id} ${d.name.split(' ')[0]}</div>
+      <div class="hm-score">${actual}<span style="font-size:0.6rem;opacity:0.6">/${d.max}</span></div>
+      <div class="hm-pct">${pct}%</div>`;
+    grid.appendChild(cell);
+  });
+}
+
+function updateHeatmapCell(idx) {
+  const d = DOMAINS[idx];
+  const actual = getDomainScore(d);
+  const pct = Math.round((actual / d.max) * 100);
+  const cls = getHmClass(pct);
+  const cell = document.getElementById(`hm-${idx}`);
+  if (!cell) return;
+  cell.className = `hm-cell ${cls}`;
+  cell.innerHTML = `
+    <div class="hm-label">D${d.id} ${d.name.split(' ')[0]}</div>
+    <div class="hm-score">${actual}<span style="font-size:0.6rem;opacity:0.6">/${d.max}</span></div>
+    <div class="hm-pct">${pct}%</div>`;
+}
+
+// Enhancement 5: Sidebar
+function buildSidebar() {
+  const sidebar = document.getElementById('domain-sidebar');
+  if (!sidebar) return;
+  // remove old items
+  sidebar.querySelectorAll('.sidebar-item').forEach(e => e.remove());
+  DOMAINS.forEach((d, idx) => {
+    const answered = d.controls.filter(c => scores[c.id] !== undefined).length;
+    const total = d.controls.length;
+    const actual = getDomainScore(d);
+    const allDone = answered === total;
+    const partial = answered > 0 && !allDone;
+    const item = document.createElement('a');
+    item.className = `sidebar-item${allDone ? ' done' : partial ? ' partial' : ''}`;
+    item.id = `sidebar-${idx}`;
+    item.href = '#';
+    item.onclick = (e) => { e.preventDefault(); document.getElementById(`card-${idx}`).scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+    item.innerHTML = `
+      <span class="sidebar-status-dot"></span>
+      <span class="sidebar-d-num">D${String(d.id).padStart(2,'0')}</span>
+      <span class="sidebar-d-name">${d.name}</span>
+      <span class="sidebar-d-score">${actual}/${d.max}</span>`;
+    sidebar.appendChild(item);
+  });
+}
+
+function updateSidebarItem(idx) {
+  const d = DOMAINS[idx];
+  const answered = d.controls.filter(c => scores[c.id] !== undefined).length;
+  const total = d.controls.length;
+  const actual = getDomainScore(d);
+  const allDone = answered === total;
+  const partial = answered > 0 && !allDone;
+  const item = document.getElementById(`sidebar-${idx}`);
+  if (!item) return;
+  item.className = `sidebar-item${allDone ? ' done' : partial ? ' partial' : ''}`;
+  item.querySelector('.sidebar-d-score').textContent = `${actual}/${d.max}`;
 }
 
 function buildControlHTML(c) {
@@ -751,6 +1229,8 @@ function setScore(id, val, btn) {
   document.getElementById(`dscore-${dIdx}`).textContent = `${getDomainScore(dom)} / ${dom.max}`;
   updateProgress();
   markDomainDone(dIdx);
+  updateHeatmapCell(dIdx);
+  updateSidebarItem(dIdx);
 }
 
 function setNote(id, val) { notes[id] = val; }
@@ -776,10 +1256,7 @@ function updateProgress() {
 }
 
 function markDomainDone(idx) {
-  const dom = DOMAINS[idx];
-  const allScored = dom.controls.every(c => scores[c.id] !== undefined);
-  const tab = document.getElementById(`tab-${idx}`);
-  if (allScored) tab.classList.add('done');
+  // sidebar item is updated by updateSidebarItem; nothing else needed here
 }
 
 function getMaturityLevel(score) {
@@ -804,20 +1281,56 @@ function submitAssessment() {
   if (answered < total) {
     const missing = total - answered;
     showToast(`⚠ ${missing} control(s) not yet scored. Unscored controls default to 0.`);
-    // Default missing to 0
     DOMAINS.forEach(d => d.controls.forEach(c => { if (scores[c.id] === undefined) scores[c.id] = 0; }));
   }
 
   const total_score = getTotalScore();
   const level = getMaturityLevel(total_score);
+  const overallPct = Math.round((total_score / 110) * 100);
 
-  // Flash card
-  document.getElementById('result-emoji').textContent = level.emoji;
-  document.getElementById('result-level-name').textContent = level.name;
-  document.getElementById('result-level-name').className = 'maturity-level-name ' + level.cls;
-  document.getElementById('result-score-text').textContent = `Score: ${total_score} / 110`;
-  document.getElementById('result-interpretation').textContent = level.interp;
-  document.getElementById('result-action').textContent = `→ ${level.action}`;
+  // Enhancement 2: Gauge ring
+  const circumference = 2 * Math.PI * 56; // r=56 → 351.86
+  const offset = circumference - (overallPct / 100) * circumference;
+  const gaugeColors = { 'level-beginner': '#f74f6a', 'level-developing': '#f7a34f', 'level-maturing': '#a78bfa', 'level-advanced': '#4f8ef7', 'level-optimized': '#00d4aa' };
+  const gaugeColor = gaugeColors[level.cls] || '#00d4aa';
+  const arc = document.getElementById('gauge-arc');
+  arc.setAttribute('stroke', gaugeColor);
+  arc.setAttribute('stroke-dasharray', circumference.toFixed(2));
+  arc.setAttribute('stroke-dashoffset', circumference.toFixed(2));
+  // animate
+  setTimeout(() => { arc.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)'; arc.setAttribute('stroke-dashoffset', offset.toFixed(2)); }, 200);
+  document.getElementById('gauge-pct-text').textContent = `${overallPct}%`;
+  document.getElementById('gauge-pct-text').style.color = gaugeColor;
+  document.getElementById('gauge-score-sub').textContent = `${total_score} / 110`;
+  document.getElementById('gauge-level-name').textContent = `${level.emoji} ${level.name}`;
+  document.getElementById('gauge-level-name').className = 'gauge-level-name ' + level.cls;
+  document.getElementById('gauge-interp').textContent = level.interp;
+  document.getElementById('gauge-action').textContent = `→ ${level.action}`;
+
+  // Enhancement 3: Horizontal bar chart
+  const hbarContainer = document.getElementById('hbar-container');
+  hbarContainer.innerHTML = '';
+  const barColorMap = { 'Optimized': 'var(--accent)', 'Advanced': 'var(--accent2)', 'Maturing': '#a78bfa', 'Developing': 'var(--accent3)', 'Beginner': 'var(--danger)' };
+  // Sort domains by pct descending
+  const sorted = DOMAINS.map(d => {
+    const actual = getDomainScore(d);
+    const pct = Math.round((actual / d.max) * 100);
+    const rating = getRating(pct);
+    return { d, actual, pct, rating };
+  }).sort((a, b) => b.pct - a.pct);
+
+  sorted.forEach(({ d, actual, pct, rating }) => {
+    const color = barColorMap[rating.label] || 'var(--accent)';
+    const row = document.createElement('div');
+    row.className = 'hbar-row';
+    row.innerHTML = `
+      <span class="hbar-label">D${d.id}. ${d.name}</span>
+      <div class="hbar-track"><div class="hbar-fill" id="hbf-${d.id}" style="background:${color};width:0%"></div></div>
+      <span class="hbar-pct" style="color:${color}">${pct}%</span>
+      <span class="hbar-pill" style="border-color:${color};color:${color}">${rating.label}</span>`;
+    hbarContainer.appendChild(row);
+    setTimeout(() => { document.getElementById(`hbf-${d.id}`).style.width = pct + '%'; }, 250);
+  });
 
   // Summary table
   const tbody = document.getElementById('summary-tbody');
@@ -842,7 +1355,6 @@ function submitAssessment() {
       <td><span class="rating-pill" style="border-color:${rating.color};color:${rating.color}">${rating.label}</span></td>`;
     tbody.appendChild(tr);
   });
-  const overallPct = Math.round((totalActual / 110) * 100);
   const totalRating = getRating(overallPct);
   const trTotal = document.createElement('tr');
   trTotal.innerHTML = `
